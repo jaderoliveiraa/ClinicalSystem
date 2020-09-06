@@ -5,15 +5,65 @@
  */
 package view;
 
+import java.awt.Color;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.border.TitledBorder;
+import DAL.ModuloConexaoLocal;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Jader
  */
 public class Login extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Login
-     */
+    private static void setBorder(TitledBorder createTitledBorder) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    Connection conexao = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+
+    public void logar() throws Exception {
+
+        String sql = "select *from tb_usuarios where email=? and senha=? and perfil=?";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, txtUsuario.getText());
+            pst.setString(2, pswSenha.getText());
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                String perfil = rs.getString(3);
+                if (perfil.equals("Suporte")||perfil.equals("Administrador")) {
+                    Inicio inicio = new Inicio();
+                    inicio.setVisible(true);
+                    inicio.menuPaciente.setEnabled(true);
+                    inicio.menuCadUsuarios.setEnabled(true);
+                    inicio.menuAgendamento.setEnabled(true);
+                    inicio.lblUsuario.setForeground(Color.red);
+                    
+                } else {
+                    Inicio inicio = new Inicio();
+                    inicio.setVisible(true);
+                }
+                
+                //Inicio.lblUsuario.setText(rs.getString(2));
+                
+                this.dispose();//fecha tela de login depois de logar
+                conexao.close();//fecha conexao com banco de dados
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario e/ou Senha Inválido(s)!");
+            }
+        } catch (SQLException e) {
+            /*JOptionPane.showMessageDialog(null,"Erro ao conectar ao banco de dados" + e.getMessage());*/
+            throw new SQLException ("Erro ao conectar ao banco de dados" + e.getMessage());
+        }
+    }
     public Login() {
         initComponents();
     }
@@ -27,9 +77,10 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jLabel2 = new javax.swing.JLabel();
+        btnSair = new javax.swing.JButton();
+        txtUsuario = new javax.swing.JTextField();
+        pswSenha = new javax.swing.JPasswordField();
+        btnEntrar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -39,29 +90,69 @@ public class Login extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(590, 380));
         getContentPane().setLayout(null);
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextField1.setBorder(null);
-        getContentPane().add(jTextField1);
-        jTextField1.setBounds(230, 180, 210, 35);
+        btnSair.setBackground(new java.awt.Color(50, 203, 254));
+        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/icon logout.png"))); // NOI18N
+        btnSair.setBorder(null);
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnSair);
+        btnSair.setBounds(20, 273, 60, 80);
 
-        jPasswordField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jPasswordField1.setBorder(null);
-        getContentPane().add(jPasswordField1);
-        jPasswordField1.setBounds(230, 235, 220, 35);
+        txtUsuario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtUsuario.setBorder(null);
+        txtUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUsuarioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtUsuario);
+        txtUsuario.setBounds(230, 205, 210, 37);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Entrar");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(290, 300, 100, 30);
+        pswSenha.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pswSenha.setBorder(null);
+        getContentPane().add(pswSenha);
+        pswSenha.setBounds(230, 260, 220, 35);
+
+        btnEntrar.setBackground(new java.awt.Color(0, 0, 153));
+        btnEntrar.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        btnEntrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEntrar.setText("Entrar");
+        btnEntrar.setBorder(null);
+        btnEntrar.setBorderPainted(false);
+        btnEntrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEntrarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnEntrar);
+        btnEntrar.setBounds(260, 310, 150, 50);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/background login_full.png"))); // NOI18N
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 580, 350);
+        jLabel1.setBounds(0, -10, 600, 420);
 
-        setSize(new java.awt.Dimension(578, 371));
+        setSize(new java.awt.Dimension(614, 429));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsuarioActionPerformed
+
+    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
+        try {
+            logar();
+        } catch (Exception ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnEntrarActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnSairActionPerformed
 
     /**
      * @param args the command line arguments
@@ -96,12 +187,14 @@ public class Login extends javax.swing.JFrame {
                 new Login().setVisible(true);
             }
         });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEntrar;
+    protected javax.swing.JButton btnSair;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField pswSenha;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
