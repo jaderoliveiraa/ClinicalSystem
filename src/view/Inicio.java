@@ -38,7 +38,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnAgendamentos = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jLabel5 = new javax.swing.JLabel();
@@ -57,7 +57,7 @@ public class Inicio extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        menuUsuario = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -86,10 +86,15 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(50, 203, 254));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/icon agendamentos.png"))); // NOI18N
-        jButton2.setToolTipText("Agendamentos");
-        jButton2.setBorder(null);
+        btnAgendamentos.setBackground(new java.awt.Color(50, 203, 254));
+        btnAgendamentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/icon agendamentos.png"))); // NOI18N
+        btnAgendamentos.setToolTipText("Agendamentos");
+        btnAgendamentos.setBorder(null);
+        btnAgendamentos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgendamentosActionPerformed(evt);
+            }
+        });
 
         btnSair.setBackground(new java.awt.Color(50, 203, 254));
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/icon logout.png"))); // NOI18N
@@ -110,7 +115,7 @@ public class Inicio extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(44, 44, 44)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2)
+                            .addComponent(btnAgendamentos)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabel2)
                                 .addComponent(jButton1)))
@@ -132,7 +137,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addGap(50, 50, 50)
-                .addComponent(jButton2)
+                .addComponent(btnAgendamentos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 253, Short.MAX_VALUE)
@@ -214,9 +219,14 @@ public class Inicio extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem2);
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem3.setText("Usuário");
-        jMenu1.add(jMenuItem3);
+        menuUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuUsuario.setText("Usuário");
+        menuUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuUsuarioActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuUsuario);
 
         jMenuBar1.add(jMenu1);
 
@@ -335,6 +345,34 @@ public class Inicio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void btnAgendamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendamentosActionPerformed
+        CadAgendamento Agendamento = new CadAgendamento();
+        jDesktopPaneInicio.add(Agendamento);
+        try
+        {
+            Agendamento.setSelected(true);
+        }
+        catch(java.beans.PropertyVetoException e)
+        {
+        }
+        
+        Agendamento.show();
+    }//GEN-LAST:event_btnAgendamentosActionPerformed
+
+    private void menuUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuUsuarioActionPerformed
+        CadUsuario Usuario = new CadUsuario();
+        jDesktopPaneInicio.add(Usuario);
+        try
+        {
+            Usuario.setSelected(true);
+        }
+        catch(java.beans.PropertyVetoException e)
+        {
+        }
+        
+        Usuario.show();
+    }//GEN-LAST:event_menuUsuarioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -371,9 +409,9 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgendamentos;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JDesktopPane jDesktopPaneInicio;
     private javax.swing.JLabel jLabel1;
@@ -386,10 +424,10 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JMenuItem menuUsuario;
     // End of variables declaration//GEN-END:variables
 }
