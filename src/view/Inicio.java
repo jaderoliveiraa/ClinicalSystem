@@ -53,11 +53,12 @@ public class Inicio extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        lblUsuario = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        menuUsuario = new javax.swing.JMenuItem();
+        menuPaciente = new javax.swing.JMenuItem();
+        menuAgendamento = new javax.swing.JMenuItem();
+        menuCadUsuarios = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -195,38 +196,40 @@ public class Inicio extends javax.swing.JFrame {
                 .addContainerGap(407, Short.MAX_VALUE))
         );
 
+        lblUsuario.setText("jLabel3");
+
         jMenuBar1.setBackground(new java.awt.Color(0, 51, 255));
 
         jMenu1.setText("Novo");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/icon cadastro paciente - menu.png"))); // NOI18N
-        jMenuItem1.setText("Paciente");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        menuPaciente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/icon cadastro paciente - menu.png"))); // NOI18N
+        menuPaciente.setText("Paciente");
+        menuPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                menuPacienteActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(menuPaciente);
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/icon agendamentos - menu.png"))); // NOI18N
-        jMenuItem2.setText("Agendamento");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        menuAgendamento.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuAgendamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/icon agendamentos - menu.png"))); // NOI18N
+        menuAgendamento.setText("Agendamento");
+        menuAgendamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                menuAgendamentoActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenu1.add(menuAgendamento);
 
-        menuUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        menuUsuario.setText("Usuário");
-        menuUsuario.addActionListener(new java.awt.event.ActionListener() {
+        menuCadUsuarios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuCadUsuarios.setText("Usuário");
+        menuCadUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuUsuarioActionPerformed(evt);
+                menuCadUsuariosActionPerformed(evt);
             }
         });
-        jMenu1.add(menuUsuario);
+        jMenu1.add(menuCadUsuarios);
 
         jMenuBar1.add(jMenu1);
 
@@ -257,13 +260,15 @@ public class Inicio extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(257, 257, 257)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 363, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jDesktopPaneInicio)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(257, 257, 257)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 205, Short.MAX_VALUE)
+                        .addComponent(lblUsuario)
+                        .addGap(124, 124, 124)))
                 .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
@@ -275,7 +280,9 @@ public class Inicio extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jDesktopPaneInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(lblUsuario)))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -284,7 +291,7 @@ public class Inicio extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void menuPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPacienteActionPerformed
         // chamar tela de cliente
         CadPaciente Paciente = new CadPaciente();
         jDesktopPaneInicio.add(Paciente);
@@ -297,9 +304,9 @@ public class Inicio extends javax.swing.JFrame {
         }
         
         Paciente.show();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_menuPacienteActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void menuAgendamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAgendamentoActionPerformed
         CadPaciente Paciente = new CadPaciente();
         jDesktopPaneInicio.add(Paciente);
         try
@@ -311,7 +318,7 @@ public class Inicio extends javax.swing.JFrame {
         }
         
         Paciente.show();
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_menuAgendamentoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
          CadPaciente Paciente = new CadPaciente();
@@ -359,7 +366,7 @@ public class Inicio extends javax.swing.JFrame {
         Agendamento.show();
     }//GEN-LAST:event_btnAgendamentosActionPerformed
 
-    private void menuUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuUsuarioActionPerformed
+    private void menuCadUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadUsuariosActionPerformed
         CadUsuario Usuario = new CadUsuario();
         jDesktopPaneInicio.add(Usuario);
         try
@@ -371,7 +378,7 @@ public class Inicio extends javax.swing.JFrame {
         }
         
         Usuario.show();
-    }//GEN-LAST:event_menuUsuarioActionPerformed
+    }//GEN-LAST:event_menuCadUsuariosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -422,12 +429,13 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JMenuItem menuUsuario;
+    protected javax.swing.JLabel lblUsuario;
+    protected javax.swing.JMenuItem menuAgendamento;
+    protected javax.swing.JMenuItem menuCadUsuarios;
+    public javax.swing.JMenuItem menuPaciente;
     // End of variables declaration//GEN-END:variables
 }
