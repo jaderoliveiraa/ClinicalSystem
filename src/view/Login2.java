@@ -5,52 +5,56 @@
  */
 package view;
 
-import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.border.TitledBorder;
-import dao.ModuloConexaoLocal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import dao.ModuloConexao;
+import java.sql.*;
 /**
  *
  * @author Jader
  */
-public class Login extends javax.swing.JFrame {
-
+public class Login2 extends javax.swing.JFrame {
     
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
-
-    public void logar() throws Exception {
-
+    
+    public void logar(){
         String sql = "select *from tb_usuarios where email=? and senha=?";
         try {
+            //preparando a consulta ao banco em função do que foi digitado
+            //nas caixas de texto
             pst = conexao.prepareStatement(sql);
             pst.setString(1, txtUsuario.getText());
             pst.setString(2, pswSenha.getText());
+            //agora executa a query
             rs = pst.executeQuery();
+            //condição de usuario e sernha existente
             if (rs.next()) {
+                Inicio inicio = new Inicio();
+                inicio.setVisible(true);
                 
-                    Inicio inicio = new Inicio();
-                    inicio.setVisible(true);
-                    
-                } else {
-                    
-                JOptionPane.showMessageDialog(null, "Usuario e/ou Senha Inválido(s)!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuário ou senha inválido(s)!");
             }
-        } catch (SQLException e) {
-            /*JOptionPane.showMessageDialog(null,"Erro ao conectar ao banco de dados" + e.getMessage());*/
-            throw new SQLException ("Erro ao conectar ao banco de dados" + e.getMessage());
+             
+                this.dispose();//fecha tela de login depois de logar
+                conexao.close();//fecha conexao com banco de dados
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
         }
     }
-    public Login() {
+    
+    public Login2() {
         initComponents();
+        conexao = ModuloConexao.conector();
+        System.out.println(conexao);
     }
 
     /**
@@ -128,11 +132,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        try {
-            logar();
-        } catch (Exception ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        logar();
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
@@ -156,20 +156,21 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                new Login2().setVisible(true);
             }
         });
         

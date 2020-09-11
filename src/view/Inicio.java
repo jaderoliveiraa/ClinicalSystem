@@ -59,9 +59,10 @@ public class Inicio extends javax.swing.JFrame {
         menuPaciente = new javax.swing.JMenuItem();
         menuAgendamento = new javax.swing.JMenuItem();
         menuCadUsuarios = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        menuOpcoes = new javax.swing.JMenu();
+        menuSobre = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        menuSair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(855, 851));
@@ -233,20 +234,35 @@ public class Inicio extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu3.setText("Sobre");
-        jMenuBar1.add(jMenu3);
+        menuOpcoes.setText("Opções");
+        menuOpcoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuOpcoesActionPerformed(evt);
+            }
+        });
+
+        menuSobre.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuSobre.setText("Sobre");
+        menuSobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuSobreActionPerformed(evt);
+            }
+        });
+        menuOpcoes.add(menuSobre);
+
+        jMenuBar1.add(menuOpcoes);
 
         jMenu2.setText("Sair");
 
-        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/icon logout - menu.png"))); // NOI18N
-        jMenuItem4.setText("Sair");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        menuSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
+        menuSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/icon logout - menu.png"))); // NOI18N
+        menuSair.setText("Sair");
+        menuSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                menuSairActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem4);
+        jMenu2.add(menuSair);
 
         jMenuBar1.add(jMenu2);
 
@@ -343,14 +359,14 @@ public class Inicio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSairActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void menuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSairActionPerformed
        // quando clicar na opção sair exibe uma caixa de confirmação
         int sair = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja sair?", "Atenção", JOptionPane.YES_NO_OPTION);
         if (sair == JOptionPane.YES_OPTION) {
             System.exit(0);
         } else {
         }
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_menuSairActionPerformed
 
     private void btnAgendamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendamentosActionPerformed
         CadAgendamento Agendamento = new CadAgendamento();
@@ -379,6 +395,24 @@ public class Inicio extends javax.swing.JFrame {
         
         Usuario.show();
     }//GEN-LAST:event_menuCadUsuariosActionPerformed
+
+    private void menuOpcoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOpcoesActionPerformed
+       
+    }//GEN-LAST:event_menuOpcoesActionPerformed
+
+    private void menuSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSobreActionPerformed
+        Sobre sobre = new Sobre();
+        jDesktopPaneInicio.add(sobre);
+        try
+        {
+            sobre.setSelected(true);
+        }
+        catch(java.beans.PropertyVetoException e)
+        {
+        }
+        
+        sobre.show();
+    }//GEN-LAST:event_menuSobreActionPerformed
 
     /**
      * @param args the command line arguments
@@ -427,15 +461,16 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     protected javax.swing.JLabel lblUsuario;
     protected javax.swing.JMenuItem menuAgendamento;
     protected javax.swing.JMenuItem menuCadUsuarios;
+    private javax.swing.JMenu menuOpcoes;
     public javax.swing.JMenuItem menuPaciente;
+    private javax.swing.JMenuItem menuSair;
+    private javax.swing.JMenuItem menuSobre;
     // End of variables declaration//GEN-END:variables
 }
