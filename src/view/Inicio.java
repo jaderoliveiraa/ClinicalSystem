@@ -5,12 +5,15 @@
  */
 package view;
 
+import java.awt.Color;
 import java.awt.Component;
 import static java.awt.SystemColor.desktop;
 import javax.swing.JOptionPane;
 import java.awt.Image;
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.plaf.basic.BasicMenuBarUI;
 
 /**
  *
@@ -54,7 +57,7 @@ public class Inicio extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        menuBarra = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         menuPaciente = new javax.swing.JMenuItem();
         menuAgendamento = new javax.swing.JMenuItem();
@@ -67,6 +70,11 @@ public class Inicio extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(855, 851));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(50, 203, 254));
 
@@ -171,7 +179,7 @@ public class Inicio extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Agendamentos do dia");
 
         jDesktopPaneInicio.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -194,12 +202,13 @@ public class Inicio extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(407, Short.MAX_VALUE))
+                .addContainerGap(314, Short.MAX_VALUE))
         );
 
         lblUsuario.setText("jLabel3");
 
-        jMenuBar1.setBackground(new java.awt.Color(0, 51, 255));
+        menuBarra.setBackground(new java.awt.Color(50, 203, 254));
+        menuBarra.setForeground(new java.awt.Color(0, 0, 0));
 
         jMenu1.setText("Novo");
 
@@ -232,7 +241,7 @@ public class Inicio extends javax.swing.JFrame {
         });
         jMenu1.add(menuCadUsuarios);
 
-        jMenuBar1.add(jMenu1);
+        menuBarra.add(jMenu1);
 
         menuOpcoes.setText("Opções");
         menuOpcoes.addActionListener(new java.awt.event.ActionListener() {
@@ -250,7 +259,7 @@ public class Inicio extends javax.swing.JFrame {
         });
         menuOpcoes.add(menuSobre);
 
-        jMenuBar1.add(menuOpcoes);
+        menuBarra.add(menuOpcoes);
 
         jMenu2.setText("Sair");
 
@@ -264,9 +273,9 @@ public class Inicio extends javax.swing.JFrame {
         });
         jMenu2.add(menuSair);
 
-        jMenuBar1.add(jMenu2);
+        menuBarra.add(jMenu2);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(menuBarra);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -311,42 +320,33 @@ public class Inicio extends javax.swing.JFrame {
         // chamar tela de cliente
         CadPaciente Paciente = new CadPaciente();
         jDesktopPaneInicio.add(Paciente);
-        try
-        {
+        try {
             Paciente.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
         }
-        catch(java.beans.PropertyVetoException e)
-        {
-        }
-        
+
         Paciente.show();
     }//GEN-LAST:event_menuPacienteActionPerformed
 
     private void menuAgendamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAgendamentoActionPerformed
         CadPaciente Paciente = new CadPaciente();
         jDesktopPaneInicio.add(Paciente);
-        try
-        {
+        try {
             Paciente.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
         }
-        catch(java.beans.PropertyVetoException e)
-        {
-        }
-        
+
         Paciente.show();
     }//GEN-LAST:event_menuAgendamentoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         CadPaciente Paciente = new CadPaciente();
+        CadPaciente Paciente = new CadPaciente();
         jDesktopPaneInicio.add(Paciente);
-        try
-        {
+        try {
             Paciente.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
         }
-        catch(java.beans.PropertyVetoException e)
-        {
-        }
-        
+
         Paciente.show();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -360,7 +360,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void menuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSairActionPerformed
-       // quando clicar na opção sair exibe uma caixa de confirmação
+        // quando clicar na opção sair exibe uma caixa de confirmação
         int sair = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja sair?", "Atenção", JOptionPane.YES_NO_OPTION);
         if (sair == JOptionPane.YES_OPTION) {
             System.exit(0);
@@ -371,48 +371,51 @@ public class Inicio extends javax.swing.JFrame {
     private void btnAgendamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendamentosActionPerformed
         CadAgendamento Agendamento = new CadAgendamento();
         jDesktopPaneInicio.add(Agendamento);
-        try
-        {
+        try {
             Agendamento.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
         }
-        catch(java.beans.PropertyVetoException e)
-        {
-        }
-        
+
         Agendamento.show();
     }//GEN-LAST:event_btnAgendamentosActionPerformed
 
     private void menuCadUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadUsuariosActionPerformed
         CadUsuario Usuario = new CadUsuario();
         jDesktopPaneInicio.add(Usuario);
-        try
-        {
+        try {
             Usuario.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
         }
-        catch(java.beans.PropertyVetoException e)
-        {
-        }
-        
+
         Usuario.show();
     }//GEN-LAST:event_menuCadUsuariosActionPerformed
 
     private void menuOpcoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOpcoesActionPerformed
-       
+
     }//GEN-LAST:event_menuOpcoesActionPerformed
 
     private void menuSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSobreActionPerformed
         Sobre sobre = new Sobre();
         jDesktopPaneInicio.add(sobre);
-        try
-        {
+        try {
             sobre.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
         }
-        catch(java.beans.PropertyVetoException e)
-        {
-        }
-        
+
         sobre.show();
     }//GEN-LAST:event_menuSobreActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        menuBarra.setOpaque(true);
+        menuBarra.setUI(new BasicMenuBarUI() {
+            public void paint(Graphics g, JComponent c) {
+                g.setColor(Color.getHSBColor(50, 203, 254));
+                g.fillRect(0, 0, c.getWidth(), c.getHeight());
+            }
+        });
+
+       
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -461,12 +464,12 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     protected javax.swing.JLabel lblUsuario;
     protected javax.swing.JMenuItem menuAgendamento;
+    private javax.swing.JMenuBar menuBarra;
     protected javax.swing.JMenuItem menuCadUsuarios;
     private javax.swing.JMenu menuOpcoes;
     public javax.swing.JMenuItem menuPaciente;
