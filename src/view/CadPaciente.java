@@ -27,7 +27,7 @@ public class CadPaciente extends javax.swing.JInternalFrame {
         conexao = ModuloConexao.conector();//sempre digitar em todos os formularios
     }
 
-    //metodo para popular a tabela usuarios
+    //metodo para popular a tabela Pacicentes
     private void pesquisar_paciente() {
         String sql = "select * from tb_pacientes where nome like ?";
         try {
@@ -42,6 +42,26 @@ public class CadPaciente extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+    }
+    
+    //metodo para setar os campos ao clicar em uma linha
+    public void setar_campos() {
+        int setar = tblPac.getSelectedRow();
+        txtPacNome.setText(tblPac.getModel().getValueAt(setar, 1).toString());
+        txtPacCpf.setText(tblPac.getModel().getValueAt(setar, 2).toString());
+        txtPacNasc.setText(tblPac.getModel().getValueAt(setar, 3).toString());
+        txtPacRg.setText(tblPac.getModel().getValueAt(setar, 4).toString());
+        txtPacEmail.setText(tblPac.getModel().getValueAt(setar, 5).toString());
+        txtPacTel.setText(tblPac.getModel().getValueAt(setar, 6).toString());
+        txtPacResp.setText(tblPac.getModel().getValueAt(setar, 7).toString());
+        txtPacEnd.setText(tblPac.getModel().getValueAt(setar, 8).toString());
+        txtPacNum.setText(tblPac.getModel().getValueAt(setar, 9).toString());
+        txtPacBairro.setText(tblPac.getModel().getValueAt(setar, 10).toString());
+        txtPacCidade.setText(tblPac.getModel().getValueAt(setar, 11).toString());
+        cbPacEstado.setSelectedItem(tblPac.getModel().getValueAt(setar, 12).toString());
+        txtPacCod.setText(tblPac.getModel().getValueAt(setar, 0).toString());
+        // alinha abaixo desabilita o botão adicionar
+        btnPacSave.setEnabled(false);
     }
 
     /**
@@ -63,7 +83,7 @@ public class CadPaciente extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         txtPacNasc = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtPacResp = new javax.swing.JTextField();
         txtPacEmail = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         txtPacTel = new javax.swing.JFormattedTextField();
@@ -113,11 +133,8 @@ public class CadPaciente extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Data de Nasc.");
 
-        try {
-            txtPacNasc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        txtPacNasc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        txtPacNasc.setText("");
 
         jLabel6.setText("Responsável");
 
@@ -151,7 +168,7 @@ public class CadPaciente extends javax.swing.JInternalFrame {
                         .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField3)
+                    .addComponent(txtPacResp)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -212,7 +229,7 @@ public class CadPaciente extends javax.swing.JInternalFrame {
                         .addComponent(txtPacNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPacResp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addContainerGap())
         );
@@ -317,6 +334,11 @@ public class CadPaciente extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblPac.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPacMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblPac);
         if (tblPac.getColumnModel().getColumnCount() > 0) {
             tblPac.getColumnModel().getColumn(0).setMinWidth(400);
@@ -398,6 +420,10 @@ public class CadPaciente extends javax.swing.JInternalFrame {
         pesquisar_paciente();
     }//GEN-LAST:event_txtPacPesqKeyReleased
 
+    private void tblPacMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPacMouseClicked
+        setar_campos();
+    }//GEN-LAST:event_tblPacMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnPacEdit;
@@ -422,7 +448,6 @@ public class CadPaciente extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTable tblPac;
     private javax.swing.JTextField txtPacBairro;
     private javax.swing.JTextField txtPacCidade;
@@ -434,6 +459,7 @@ public class CadPaciente extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtPacNome;
     private javax.swing.JTextField txtPacNum;
     private javax.swing.JTextField txtPacPesq;
+    private javax.swing.JTextField txtPacResp;
     private javax.swing.JTextField txtPacRg;
     private javax.swing.JFormattedTextField txtPacTel;
     // End of variables declaration//GEN-END:variables
