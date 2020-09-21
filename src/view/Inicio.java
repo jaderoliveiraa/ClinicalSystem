@@ -11,6 +11,8 @@ import static java.awt.SystemColor.desktop;
 import javax.swing.JOptionPane;
 import java.awt.Image;
 import java.awt.Graphics;
+import java.text.DateFormat;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.plaf.basic.BasicMenuBarUI;
@@ -57,6 +59,9 @@ public class Inicio extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
+        lblData = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         menuBarra = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         menuPaciente = new javax.swing.JMenuItem();
@@ -71,6 +76,9 @@ public class Inicio extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(855, 851));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -166,6 +174,7 @@ public class Inicio extends javax.swing.JFrame {
             .addGap(0, 830, Short.MAX_VALUE)
         );
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Desenvolvido por STARTECH DEVELOP Copyright 2020");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -189,7 +198,7 @@ public class Inicio extends javax.swing.JFrame {
         jDesktopPaneInicio.setLayout(jDesktopPaneInicioLayout);
         jDesktopPaneInicioLayout.setHorizontalGroup(
             jDesktopPaneInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 858, Short.MAX_VALUE)
             .addGroup(jDesktopPaneInicioLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
@@ -205,10 +214,19 @@ public class Inicio extends javax.swing.JFrame {
                 .addContainerGap(402, Short.MAX_VALUE))
         );
 
-        lblUsuario.setText("jLabel3");
+        lblUsuario.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
+        lblUsuario.setText("Usuário");
 
-        menuBarra.setBackground(new java.awt.Color(50, 203, 254));
-        menuBarra.setForeground(new java.awt.Color(0, 0, 0));
+        lblData.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
+        lblData.setText("Data");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setText("Hoje é dia: ");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel6.setText("Usuário:");
+
+        menuBarra.setBackground(new java.awt.Color(204, 204, 204));
 
         jMenu1.setText("Novo");
 
@@ -283,17 +301,20 @@ public class Inicio extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDesktopPaneInicio)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(257, 257, 257)
+                        .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(65, 65, 65)
                         .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
-                        .addComponent(lblUsuario)
-                        .addGap(124, 124, 124)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jDesktopPaneInicio))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
@@ -307,12 +328,15 @@ public class Inicio extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(lblUsuario)))
+                            .addComponent(lblUsuario)
+                            .addComponent(lblData)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel6)))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(1050, 740));
+        setSize(new java.awt.Dimension(1050, 732));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -417,6 +441,15 @@ public class Inicio extends javax.swing.JFrame {
        
     }//GEN-LAST:event_formWindowOpened
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        //as linhas abaixo substituem a label DATA lblData pela data atual do sistema
+        //ao inicializar o form
+        Date data = new Date();
+        DateFormat formatador = DateFormat.getDateInstance(DateFormat.SHORT);
+        lblData.setText(formatador.format(data));
+        
+    }//GEN-LAST:event_formWindowActivated
+
     /**
      * @param args the command line arguments
      */
@@ -460,14 +493,17 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jDesktopPaneInicio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    protected javax.swing.JLabel lblUsuario;
+    private javax.swing.JLabel lblData;
+    public javax.swing.JLabel lblUsuario;
     protected javax.swing.JMenuItem menuAgendamento;
     private javax.swing.JMenuBar menuBarra;
     protected javax.swing.JMenuItem menuCadUsuarios;

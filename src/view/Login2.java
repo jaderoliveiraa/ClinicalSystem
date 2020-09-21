@@ -14,18 +14,20 @@ import javax.swing.border.TitledBorder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import dao.ModuloConexao;
+import java.awt.Color;
 import java.sql.*;
+
 /**
  *
  * @author Jader
  */
 public class Login2 extends javax.swing.JFrame {
-    
+
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
-    
-    public void logar(){
+
+    public void logar() {
         String sql = "select *from tb_usuarios where email=? and senha=? and situacao='Ativo'";
         try {
             //preparando a consulta ao banco em função do que foi digitado
@@ -37,24 +39,41 @@ public class Login2 extends javax.swing.JFrame {
             rs = pst.executeQuery();
             //condição de usuario e sernha existente
             if (rs.next()) {
+                String perfil = rs.getString(9);
+                if (perfil.equals("Suporte")|| perfil.equals("Administrador")) {
+                    Inicio inicio = new Inicio();
+                    inicio.setVisible(true);
+                    inicio.menuAgendamento.setEnabled(true);
+                    inicio.menuPaciente.setEnabled(true);
+                    inicio.menuCadUsuarios.setEnabled(true);
+                    inicio.lblUsuario.setText(rs.getString(2));
+                    inicio.lblUsuario.setForeground(Color.red);
+
+                } else {
+                    Inicio inicio = new Inicio();
+                    inicio.setVisible(true);
+                    inicio.menuAgendamento.setEnabled(true);
+                    inicio.menuPaciente.setEnabled(true);
+                    inicio.menuCadUsuarios.setEnabled(false);
+                }
                 Inicio inicio = new Inicio();
-                inicio.setVisible(true);
-                
+                inicio.lblUsuario.setText(rs.getString(2));
+                inicio.lblUsuario.setForeground(Color.GREEN);
+
             } else {
                 JOptionPane.showMessageDialog(null, "Usuário ou senha inválido(s)!");
             }
-             
-                this.dispose();//fecha tela de login depois de logar
-                conexao.close();//fecha conexao com banco de dados
+
+            this.dispose();//fecha tela de login depois de logar
+            conexao.close();//fecha conexao com banco de dados
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-    
+
     public Login2() {
         initComponents();
         conexao = ModuloConexao.conector();
-        System.out.println(conexao);
     }
 
     /**
@@ -173,7 +192,7 @@ public class Login2 extends javax.swing.JFrame {
                 new Login2().setVisible(true);
             }
         });
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
