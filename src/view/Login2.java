@@ -26,7 +26,7 @@ public class Login2 extends javax.swing.JFrame {
     ResultSet rs = null;
     
     public void logar(){
-        String sql = "select *from tb_usuarios where email=? and senha=?";
+        String sql = "select *from tb_usuarios where email=? and senha=? and situacao='Ativo'";
         try {
             //preparando a consulta ao banco em função do que foi digitado
             //nas caixas de texto
