@@ -11,8 +11,11 @@ import static java.awt.SystemColor.desktop;
 import javax.swing.JOptionPane;
 import java.awt.Image;
 import java.awt.Graphics;
+import java.beans.PropertyVetoException;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.plaf.basic.BasicMenuBarUI;
@@ -42,7 +45,7 @@ public class Inicio extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnCadPaciente = new javax.swing.JButton();
         btnAgendamentos = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
         jDesktopPane1 = new javax.swing.JDesktopPane();
@@ -62,6 +65,8 @@ public class Inicio extends javax.swing.JFrame {
         lblData = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        lblId = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         menuBarra = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         menuPaciente = new javax.swing.JMenuItem();
@@ -94,13 +99,13 @@ public class Inicio extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Agendamentos");
 
-        jButton1.setBackground(new java.awt.Color(50, 203, 254));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/icon cadastro paciente2.png"))); // NOI18N
-        jButton1.setToolTipText("Cadastro de Pacientes");
-        jButton1.setBorder(null);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCadPaciente.setBackground(new java.awt.Color(50, 203, 254));
+        btnCadPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/icon cadastro paciente2.png"))); // NOI18N
+        btnCadPaciente.setToolTipText("Cadastro de Pacientes");
+        btnCadPaciente.setBorder(null);
+        btnCadPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCadPacienteActionPerformed(evt);
             }
         });
 
@@ -136,7 +141,7 @@ public class Inicio extends javax.swing.JFrame {
                             .addComponent(btnAgendamentos)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabel2)
-                                .addComponent(jButton1)))
+                                .addComponent(btnCadPaciente)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(25, Short.MAX_VALUE)
@@ -151,7 +156,7 @@ public class Inicio extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(60, 60, 60)
-                .addComponent(jButton1)
+                .addComponent(btnCadPaciente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addGap(50, 50, 50)
@@ -198,7 +203,7 @@ public class Inicio extends javax.swing.JFrame {
         jDesktopPaneInicio.setLayout(jDesktopPaneInicioLayout);
         jDesktopPaneInicioLayout.setHorizontalGroup(
             jDesktopPaneInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 858, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)
             .addGroup(jDesktopPaneInicioLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
@@ -225,6 +230,11 @@ public class Inicio extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setText("Usuário:");
+
+        lblId.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblId.setText("ID");
+
+        jLabel8.setText("-");
 
         menuBarra.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -301,18 +311,22 @@ public class Inicio extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(65, 65, 65)
-                        .addComponent(jLabel5)
+                        .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblId, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jDesktopPaneInicio))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -331,7 +345,9 @@ public class Inicio extends javax.swing.JFrame {
                             .addComponent(lblUsuario)
                             .addComponent(lblData)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel6)))
+                            .addComponent(jLabel6)
+                            .addComponent(lblId)
+                            .addComponent(jLabel8)))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -363,16 +379,21 @@ public class Inicio extends javax.swing.JFrame {
         Paciente.show();
     }//GEN-LAST:event_menuAgendamentoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnCadPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadPacienteActionPerformed
         CadPaciente Paciente = new CadPaciente();
         jDesktopPaneInicio.add(Paciente);
+        try {
+            Paciente.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
         try {
             Paciente.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
         }
 
         Paciente.show();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnCadPacienteActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         // quando clicar na opção sair exibe uma caixa de confirmação
@@ -396,6 +417,11 @@ public class Inicio extends javax.swing.JFrame {
         CadAgendamento Agendamento = new CadAgendamento();
         jDesktopPaneInicio.add(Agendamento);
         try {
+            Agendamento.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
             Agendamento.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
         }
@@ -406,6 +432,11 @@ public class Inicio extends javax.swing.JFrame {
     private void menuCadUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadUsuariosActionPerformed
         CadUsuario Usuario = new CadUsuario();
         jDesktopPaneInicio.add(Usuario);
+        try {
+            Usuario.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
         try {
             Usuario.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
@@ -487,8 +518,8 @@ public class Inicio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgendamentos;
+    private javax.swing.JButton btnCadPaciente;
     private javax.swing.JButton btnSair;
-    private javax.swing.JButton jButton1;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JDesktopPane jDesktopPaneInicio;
     private javax.swing.JLabel jLabel1;
@@ -497,12 +528,14 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblData;
+    public javax.swing.JLabel lblId;
     public javax.swing.JLabel lblUsuario;
     protected javax.swing.JMenuItem menuAgendamento;
     private javax.swing.JMenuBar menuBarra;

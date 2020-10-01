@@ -183,8 +183,6 @@ public class CadUsuario extends javax.swing.JInternalFrame {
 
         setBackground(new java.awt.Color(204, 204, 204));
         setClosable(true);
-        setIconifiable(true);
-        setMaximizable(true);
         setTitle("Usuários");
         setPreferredSize(new java.awt.Dimension(916, 637));
 

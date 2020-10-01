@@ -5,6 +5,7 @@
  */
 package view;
 
+import controller.ControllerUsuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -48,6 +49,9 @@ public class Login2 extends javax.swing.JFrame {
                     inicio.menuCadUsuarios.setEnabled(true);
                     inicio.lblUsuario.setText(rs.getString(2));
                     inicio.lblUsuario.setForeground(Color.red);
+                    inicio.lblId.setText(rs.getString(1));
+                    ControllerUsuario usuario = new ControllerUsuario();
+                    usuario.id= rs.getString(1);
 
                 } else {
                     Inicio inicio = new Inicio();
@@ -55,6 +59,7 @@ public class Login2 extends javax.swing.JFrame {
                     inicio.menuAgendamento.setEnabled(true);
                     inicio.menuPaciente.setEnabled(true);
                     inicio.menuCadUsuarios.setEnabled(false);
+                    inicio.lblUsuario.setText(rs.getString(2));
                 }
                 Inicio inicio = new Inicio();
                 inicio.lblUsuario.setText(rs.getString(2));
