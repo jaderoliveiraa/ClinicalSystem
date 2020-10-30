@@ -58,14 +58,7 @@ public class CadAgendamento extends javax.swing.JInternalFrame {
         txtAdendMedico.setText(tbMedico.getModel().getValueAt(setar, 1).toString());
         txtAdendMedicoCod.setText(tbMedico.getModel().getValueAt(setar, 0).toString());
     }
-    //metodo para carregar o Id do usuário para o formulário
     
-    public void carregar_id(){
-        controller.ControllerUsuario usuario = new ControllerUsuario();
-        
-        lblCodUser.setText(usuario.id);
-        
-    }
     //metodo para popular a tabela usuarios
     private void pesquisar_medico() {
         String sql = "select * from tb_usuarios where nome like ? and perfil = 'Médico'";
@@ -82,6 +75,8 @@ public class CadAgendamento extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -109,8 +104,6 @@ public class CadAgendamento extends javax.swing.JInternalFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         txtAgendHora = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        lblCodUser = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbMedico = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
@@ -198,17 +191,12 @@ public class CadAgendamento extends javax.swing.JInternalFrame {
 
         jLabel10.setText("Hora:");
 
-        jLabel11.setText("Cod. Usuário:");
-
-        lblCodUser.setBackground(new java.awt.Color(255, 255, 255));
-        lblCodUser.setText("Código");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(62, 62, 62)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -220,14 +208,10 @@ public class CadAgendamento extends javax.swing.JInternalFrame {
                             .addComponent(txtAdendPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblCodUser, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtAtendData, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel3)
@@ -261,10 +245,8 @@ public class CadAgendamento extends javax.swing.JInternalFrame {
                         .addComponent(jLabel10))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtAtendData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel5)
-                        .addComponent(jLabel11)
-                        .addComponent(lblCodUser)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel5)))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         tbMedico.setModel(new javax.swing.table.DefaultTableModel(
@@ -296,6 +278,11 @@ public class CadAgendamento extends javax.swing.JInternalFrame {
         btnAgendEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/btm_edit.png"))); // NOI18N
 
         btnAgendSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/btn_save.png"))); // NOI18N
+        btnAgendSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgendSaveActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel7.setText("Adicionar");
@@ -383,12 +370,16 @@ public class CadAgendamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tblPacMouseClicked
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-       carregar_id();
+       
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void tbMedicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbMedicoMouseClicked
         setar_campos_medico();
     }//GEN-LAST:event_tbMedicoMouseClicked
+
+    private void btnAgendSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendSaveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgendSaveActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -396,7 +387,6 @@ public class CadAgendamento extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnAgendSave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -408,7 +398,6 @@ public class CadAgendamento extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    public javax.swing.JLabel lblCodUser;
     private javax.swing.JTable tbMedico;
     private javax.swing.JTable tblPac;
     private javax.swing.JTextField txtAdendMedico;
