@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 01-Out-2020 às 02:22
+-- Tempo de geração: 20-Nov-2020 às 01:17
 -- Versão do servidor: 10.4.14-MariaDB
--- versão do PHP: 7.2.33
+-- versão do PHP: 7.4.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,12 +29,22 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `tb_agendamentos` (
   `id` int(11) NOT NULL,
-  `data` date NOT NULL,
+  `data` varchar(10) NOT NULL,
   `hora` varchar(8) NOT NULL,
   `id_paciente` int(11) NOT NULL,
-  `id_medico` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL
+  `nome_paciente` varchar(150) NOT NULL,
+  `nome_medico` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tb_agendamentos`
+--
+
+INSERT INTO `tb_agendamentos` (`id`, `data`, `hora`, `id_paciente`, `nome_paciente`, `nome_medico`) VALUES
+(1, '22/11/2020', '08:35', 10002, 'patricio cambão', 'Dr. Juliano'),
+(2, '25/11/2020', '09:15', 10001, 'gertrudes amorim do carmo', 'Dr. Juliano'),
+(3, '21/02/2021', '14:25', 10001, 'gertrudes amorim do carmo', 'Dr. Juliano'),
+(4, '31/10/2021', '15:15', 10003, 'fulano de tal', 'Dr. Fernando');
 
 -- --------------------------------------------------------
 
@@ -95,10 +105,11 @@ CREATE TABLE `tb_usuarios` (
 --
 
 INSERT INTO `tb_usuarios` (`id`, `nome`, `cpf`, `tel`, `dataNasc`, `rg`, `email`, `senha`, `perfil`, `situacao`) VALUES
-(1001, 'Jáder Oliveira', '620.998.923-34', '(88) 9 8842-0622', '24/09/1981', '2002029276028', 'jaderoliveiraa@gmail.com', '21548721', 'Suporte', 'Ativo'),
+(1001, 'Jáder Oliveira', '620.998.923-34', '(88) 9 8842-0622', '24/09/1981', '2002029276028', 'jader', '21548721', 'Suporte', 'Ativo'),
 (1002, 'fulano de talllllllll', '888.888.888-88', '(88) 9 8888-8888', '20/09/2005', '2222144110', 'fulano@gmail.com', '123', 'Recepcionista', 'Ativo'),
-(1003, 'Medico', '222.222.222-00', '(88) 8 8888-8844', '26/09/20', '3214578454', 'medico@medico.com', '123456', 'Médico', 'Ativo'),
-(1004, 'brenner borges', '222.010.111-01', '(88) 9 5547-4747', '30/09/20  ', '20141547', 'brenner@gmail.com', '123456', 'Administrador', 'Ativo');
+(1003, 'Dr. Juliano', '222.222.222-00', '(88) 8 8888-8844', '26/09/20', '3214578454', 'juliano@medico.com', '123456', 'Médico', 'Ativo'),
+(1004, 'brenner borges', '222.010.111-01', '(88) 9 5547-4747', '30/09/20  ', '20141547', 'brenner@gmail.com', '123456', 'Administrador', 'Ativo'),
+(1005, 'Dr. Fernando', '125.414.787-44', '(88) 9 8454-7478', '19/11/2020', '548795847', 'fernando@gmail.com', '123456', 'Médico', 'Ativo');
 
 --
 -- Índices para tabelas despejadas
@@ -109,8 +120,7 @@ INSERT INTO `tb_usuarios` (`id`, `nome`, `cpf`, `tel`, `dataNasc`, `rg`, `email`
 --
 ALTER TABLE `tb_agendamentos`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_pacientes` (`id_paciente`),
-  ADD KEY `fk_usuario` (`id_usuario`);
+  ADD KEY `fk_pacientes` (`id_paciente`);
 
 --
 -- Índices para tabela `tb_pacientes`
@@ -132,7 +142,7 @@ ALTER TABLE `tb_usuarios`
 -- AUTO_INCREMENT de tabela `tb_agendamentos`
 --
 ALTER TABLE `tb_agendamentos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `tb_pacientes`
@@ -144,19 +154,7 @@ ALTER TABLE `tb_pacientes`
 -- AUTO_INCREMENT de tabela `tb_usuarios`
 --
 ALTER TABLE `tb_usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1005;
-
---
--- Restrições para despejos de tabelas
---
-
---
--- Limitadores para a tabela `tb_agendamentos`
---
-ALTER TABLE `tb_agendamentos`
-  ADD CONSTRAINT `fk_medicos` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuarios` (`id`),
-  ADD CONSTRAINT `fk_pacientes` FOREIGN KEY (`id_paciente`) REFERENCES `tb_pacientes` (`id`),
-  ADD CONSTRAINT `fk_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuarios` (`id`);
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1006;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

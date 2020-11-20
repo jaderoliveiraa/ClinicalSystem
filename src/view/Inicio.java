@@ -12,25 +12,70 @@ import javax.swing.JOptionPane;
 import java.awt.Image;
 import java.awt.Graphics;
 import java.beans.PropertyVetoException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.plaf.basic.BasicMenuBarUI;
+import net.proteanit.sql.DbUtils;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
  * @author Jader
  */
 public class Inicio extends javax.swing.JFrame {
+    Connection conexao = null;//sempre importar
+    PreparedStatement pst = null;//sempre importar
+    ResultSet rs = null;//sempre importar
 
     /**
      * Creates new form Inicio
      */
     public Inicio() {
         initComponents();
+    }
+    
+    private void preencher_tabela_agendamentos() {
+        String datalocal = lblData.getText();
+        String sql = "select * from tb_agendamentos where data = datalocal";
+        try {
+            pst = conexao.prepareStatement(sql);
+            rs = pst.executeQuery();
+            tbAgendamentos.setModel(DbUtils.resultSetToTableModel(rs));
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    public void imprimir_agendamentos(){
+         // Gerando Relatório de Os
+        int confirma = JOptionPane.showConfirmDialog(null, "Confirma a Impressão?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            //imprimindo relatorio com o framework JasperReport
+            try {
+                //classe HashMap do framework JasperReport para criar um filtro
+               // HashMap filtro = new HashMap();
+                //filtro.put("os", Integer.parseInt(txtOs.getText()));
+                //usando a classe JasperPrint
+                JasperPrint print = JasperFillManager.fillReport("d:/reports/agendamentos.jasper", null, conexao);
+                //a linha abaixo exibe o relatorio atraves da classe JasperViewer
+                JasperViewer.viewReport(print, false);
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        } else {
+        }
     }
 
     /**
@@ -59,7 +104,7 @@ public class Inicio extends javax.swing.JFrame {
             }
         };
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbAgendamentos = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
@@ -74,6 +119,9 @@ public class Inicio extends javax.swing.JFrame {
         menuCadUsuarios = new javax.swing.JMenuItem();
         menuOpcoes = new javax.swing.JMenu();
         menuSobre = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+        mnRelAgend = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         menuSair = new javax.swing.JMenuItem();
 
@@ -182,7 +230,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Desenvolvido por STARTECH DEVELOP Copyright 2020");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbAgendamentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null}
             },
@@ -190,7 +238,7 @@ public class Inicio extends javax.swing.JFrame {
                 "Nome", "Telefone", "Médico", "Horário", "Situação"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbAgendamentos);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -216,7 +264,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(402, Short.MAX_VALUE))
+                .addContainerGap(385, Short.MAX_VALUE))
         );
 
         lblUsuario.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
@@ -240,7 +288,7 @@ public class Inicio extends javax.swing.JFrame {
 
         jMenu1.setText("Novo");
 
-        menuPaciente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuPaciente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         menuPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/icon cadastro paciente - menu.png"))); // NOI18N
         menuPaciente.setText("Paciente");
         menuPaciente.addActionListener(new java.awt.event.ActionListener() {
@@ -250,7 +298,7 @@ public class Inicio extends javax.swing.JFrame {
         });
         jMenu1.add(menuPaciente);
 
-        menuAgendamento.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuAgendamento.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         menuAgendamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/icon agendamentos - menu.png"))); // NOI18N
         menuAgendamento.setText("Agendamento");
         menuAgendamento.addActionListener(new java.awt.event.ActionListener() {
@@ -260,7 +308,7 @@ public class Inicio extends javax.swing.JFrame {
         });
         jMenu1.add(menuAgendamento);
 
-        menuCadUsuarios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuCadUsuarios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         menuCadUsuarios.setText("Usuário");
         menuCadUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -278,7 +326,7 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        menuSobre.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuSobre.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         menuSobre.setText("Sobre");
         menuSobre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -289,9 +337,26 @@ public class Inicio extends javax.swing.JFrame {
 
         menuBarra.add(menuOpcoes);
 
+        jMenu3.setText("Relatórios");
+
+        jMenu4.setText("Agendamentos");
+
+        mnRelAgend.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mnRelAgend.setText("Gerar");
+        mnRelAgend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnRelAgendActionPerformed(evt);
+            }
+        });
+        jMenu4.add(mnRelAgend);
+
+        jMenu3.add(jMenu4);
+
+        menuBarra.add(jMenu3);
+
         jMenu2.setText("Sair");
 
-        menuSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
+        menuSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_DOWN_MASK));
         menuSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/icon logout - menu.png"))); // NOI18N
         menuSair.setText("Sair");
         menuSair.addActionListener(new java.awt.event.ActionListener() {
@@ -468,7 +533,8 @@ public class Inicio extends javax.swing.JFrame {
                 g.fillRect(0, 0, c.getWidth(), c.getHeight());
             }
         });
-
+        preencher_tabela_agendamentos();
+        
        
     }//GEN-LAST:event_formWindowOpened
 
@@ -480,6 +546,10 @@ public class Inicio extends javax.swing.JFrame {
         lblData.setText(formatador.format(data));
         
     }//GEN-LAST:event_formWindowActivated
+
+    private void mnRelAgendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnRelAgendActionPerformed
+        imprimir_agendamentos();
+    }//GEN-LAST:event_mnRelAgendActionPerformed
 
     /**
      * @param args the command line arguments
@@ -531,9 +601,10 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblData;
     public javax.swing.JLabel lblId;
     public javax.swing.JLabel lblUsuario;
@@ -544,5 +615,7 @@ public class Inicio extends javax.swing.JFrame {
     public javax.swing.JMenuItem menuPaciente;
     private javax.swing.JMenuItem menuSair;
     private javax.swing.JMenuItem menuSobre;
+    private javax.swing.JMenuItem mnRelAgend;
+    private javax.swing.JTable tbAgendamentos;
     // End of variables declaration//GEN-END:variables
 }
