@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.plaf.basic.BasicMenuBarUI;
+import javax.swing.text.Document;
 import net.proteanit.sql.DbUtils;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -61,22 +62,27 @@ public class Inicio extends javax.swing.JFrame {
          // Gerando Relatório de Os
         int confirma = JOptionPane.showConfirmDialog(null, "Confirma a Impressão?", "Atenção", JOptionPane.YES_NO_OPTION);
         if (confirma == JOptionPane.YES_OPTION) {
+            String src = "C:/reports/agendamentos.jasper";
+            JasperPrint imprimir = null;
             //imprimindo relatorio com o framework JasperReport
             try {
-                //classe HashMap do framework JasperReport para criar um filtro
-               // HashMap filtro = new HashMap();
-                //filtro.put("os", Integer.parseInt(txtOs.getText()));
                 //usando a classe JasperPrint
-                JasperPrint print = JasperFillManager.fillReport("d:/reports/agendamentos.jasper", null, conexao);
+                imprimir = JasperFillManager.fillReport(src, null, conexao);
                 //a linha abaixo exibe o relatorio atraves da classe JasperViewer
-                JasperViewer.viewReport(print, false);
+                
 
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
+                JOptionPane.showMessageDialog(null, "Erro ao gerar relatório \n" +e);
             }
+            JasperViewer view = new JasperViewer(imprimir, false);
+            view.setVisible(true);
+            
         } else {
+            
         }
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -533,7 +539,7 @@ public class Inicio extends javax.swing.JFrame {
                 g.fillRect(0, 0, c.getWidth(), c.getHeight());
             }
         });
-        preencher_tabela_agendamentos();
+        //preencher_tabela_agendamentos();
         
        
     }//GEN-LAST:event_formWindowOpened
@@ -549,6 +555,8 @@ public class Inicio extends javax.swing.JFrame {
 
     private void mnRelAgendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnRelAgendActionPerformed
         imprimir_agendamentos();
+        
+        
     }//GEN-LAST:event_mnRelAgendActionPerformed
 
     /**
